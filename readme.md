@@ -1,73 +1,27 @@
-Voting System
+# Voting System Solidity Contract
+This is a simple Solidity contract that implements a basic voting system. It allows the admin to add and remove users from the list of allowed voters, and allows registered users to cast their votes. This contract is released under the MIT License.
 
-Scenerio:
-    We have an administrator who would add all those allowed to vote to this list,
-    and when you vote, check first because somebody is on this list. 
-    And if it's on the list, you vote, and you'll be removed from the list. 
+## Getting Started
+To use this contract, you will need a Solidity compiler such as Remix IDE. You can also use other Solidity compilers and tools.
 
-Variables: 
-    1. address public admin
-        For set Address of Administrator.
+## FunctionalityFunctionality
+#### Constructor
+The constructor function initializes the contract by assigning the admin variable to the address of the user who deploys the contract.
 
-    2. uint256 public voteCount
-        Count number of Votes done by any user. Increment by 1
-        everytime when vote Function successfully Ececuted.
-    
-    3. uint256 public allowedUserCount
-        save number of users allowed to vote here.
-        returns integer value on call.
-    
-    4. address[] allowedUsers
-        array use to save address of all users allowed to vote here.
-    
-    5. mapping(address => bool) public allowed
-        use to save list of allowed users.
-        return true or false when call with any address.
+#### onlyOwner Modifier
+This modifier is used in the function definitions to ensure that only the admin can call certain functions. If any other user tries to call these functions, an error message "Only admin can call this function" is returned.
 
-    6. mapping(address => bool) public voted
-        use to save list of users who have done there voteing.
-        return true or false when call with any address.
+#### addAllowed Function
+This function can only be called by the admin using the onlyOwner modifier. If the user is not already allowed to vote, this function adds the user to the list of allowed voters and increments the allowedUserCount variable. If the user is already listed, an error message "Voter already allowed" is returned.
 
-Functions:
-    1. addAllowed
-        i.   need one argument type address.
-        ii.  can only be called by Administrator because we use 
-             onlyOwner modifier in function header.
-        iii. returns an error message if called by any other user.
-        iv.  check allowed mapping if voter already listed in allow list.
-        v.   push user in allowedUsers array.
-        vi.  set allowed mapping of this user to true.
-        vii. increment by 1 on allowedUserCount variable.
-        viii.returns true if successfully added.
+#### removeAllowed Function
+This function can only be called by the admin using the onlyOwner modifier. If the allowedUserCount variable is greater than 0, this function removes the user from the list of allowed voters and decrements the allowedUserCount variable. If the user is not already listed, an error message "Voter not allowed" is returned. If there are no users in the list, an error message "List is already empty" is returned.
 
-    2. removeAllowed
-        i.   need one argument type address.
-        ii.  can only be called by Administrator because we use 
-             onlyOwner modifier in function header.
-        iii. returns an error message if called by any other user.
-        iv.  check allowed mapping if voter listed in allow list.
-        v.   pop user from allowedUsers array.
-        vi.  set allowed mapping of this user to false.
-        vii. decrement by 1 on allowedUserCount variable.
-        viii.check if allowedUserCount is > 0. else return an error.
-        ix.  returns true if successfully removed.
+#### vote Function
+This function can be called by any registered/allowed user. If the user is the admin, an error message "Admin not allowed to vote here" is returned. If the user is not listed in the allowed users list, an error message "Voter not allowed" is returned. If there are no users in the list, an error message "No one is in the list" is returned. If the user has already voted, an error message "Voter already voted / not allowed" is returned. Otherwise, the user is allowed to vote, and the voteCount variable is incremented by 1. The user is then removed from the allowed users list, and the allowedUserCount variable is decremented.
 
-    3. vote
-        i.   administrator not allowed to vote. if tried it returns an error.
-        ii.  check if voter allowed
-        iii. check allowedUserCount > 0
-        iv.  check if user already voted. if tried again returns an error.
-        v.   voted mapping for caller sets to true.
-        vi.  voteCount increment by one.
-        vii. allowedUserCount decrement by 1.
-        viii.allowed mapping for caller sets to false
-        ix.  pop the current user from allowed mapping.
-        x.   returns true if function successfully executed
+#### totalAllowedList Function
+This function returns the list of all allowed users who can vote.
 
-    4. totalAllowedList
-        return all allowed user addresses.
-
-Modifier:
-    1. onlyOwner
-        use to check if user is an administrator.
-        administrator is defined in constructor and save in admin variable.
+## LicenseLicense
+This contract is released under the MIT License. Please see the LICENSE file for more information.
