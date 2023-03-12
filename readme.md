@@ -3,8 +3,27 @@ This is a simple Solidity contract that implements a basic voting system. It all
 
 ## Getting Started
 To use this contract, you will need a Solidity compiler such as Remix IDE. You can also use other Solidity compilers and tools.
+## Variables
+#### admin 
+This is an address type variable that holds the address of the user who deployed the contract. The value of this variable is set in the constructor function and is used in the onlyOwner modifier to restrict access to certain functions.
 
-## FunctionalityFunctionality
+#### voteCount
+This is an uint256 type variable that keeps track of the total number of votes cast by the users.
+
+#### allowedUserCount
+This is an uint256 type variable that keeps track of the total number of users who are allowed to vote.
+
+#### allowedUsers
+This is an array of address type variables that holds the addresses of users who are allowed to vote.
+
+#### allowed
+This is a mapping of address type keys to bool type values. It keeps track of whether a particular user is allowed to vote or not.
+
+#### voted
+This is a mapping of address type keys to bool type values. It keeps track of whether a particular user has already cast their vote or not.
+
+The variables** admin, voteCount, allowedUserCount, allowedUsers, allowed,** and **voted** are all declared as public, which means that they can be accessed outside the contract and act as getter functions. This eliminates the need to define separate getter functions for these variables.
+## Functionality
 #### Constructor
 The constructor function initializes the contract by assigning the admin variable to the address of the user who deploys the contract.
 
