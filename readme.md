@@ -42,5 +42,5 @@ This function can be called by any registered/allowed user. If the user is the a
 #### totalAllowedList Function
 This function returns the list of all allowed users who can vote.
 
-## LicenseLicense
+## License
 This contract is released under the MIT License. Please see the LICENSE file for more information.
